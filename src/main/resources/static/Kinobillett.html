@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinobiletter</title>
+    <script>
+        function validateForm() {
+            var movie = document.forms["ticketForm"]["movie"].value;
+            var amount = document.forms["ticketForm"]["amount"].value;
+            var firstName = document.forms["ticketForm"]["firstname"].value;
+            var lastName = document.forms["ticketForm"]["lastname"].value;
+            var phone = document.forms["ticketForm"]["phone"].value;
+            var email = document.forms["ticketForm"]["email"].value;
+
+            if (!movie || !amount || !firstName || !lastName || !phone || !email) {
+                alert("Vennligst fyll ut alle feltene");
+                return false;
+            } else if (!/^\d{8}$/.test(phone)) {
+                alert("Telefon nummer må ha 8 siffer");
+                return false;
+            } else {
+                document.getElementById("savedInfo").textContent =
+                    "Film: " + movie + ", " +
+                    "Antall: " + amount + ", " +
+                    "Navn: " + firstName + " " + lastName + ", " +
+                    "Telefon: " + phone + ", " +
+                    "Mail: " + email;
+                document.getElementById("deleteButton").style.display = 'inline';
+                return false;
+            }
+        }
+
+        function deleteInformation() {
+            document.getElementById("savedInfo").textContent = '';
+            document.getElementById("deleteButton").style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+
+<h1>Bestilling av kinobilletter</h1>
+
+<form name="ticketForm" onsubmit="return validateForm()">
+    <label for="movie">Velg film:</label>
+    <select name="movie" id="movie">
+        <option value="">Velg film her</option>
+        <option value="Iron Man">Iron Man</option>
+        <option value="The Avengers">The Avengers</option>
+        <option value="Guardians of the Galaxy">Guardians of the Galaxy</option>
+        <option value="Thor: Ragnarok">Thor: Ragnarok</option>
+        <option value="Black Panther">Black Panther</option>
+    </select>
+    <br>
+
+    <label for="amount">Antall:</label>
+    <input type="number" id="amount" name="amount" min="1">
+    <br>
+
+    <label for="firstname">Fornavn:</label>
+    <input type="text" id="firstname" name="firstname">
+    <br>
+
+    <label for="lastname">Etternavn:</label>
+    <input type="text" id="lastname" name="lastname">
+    <br>
+
+    <label for="phone">Telefonnr:</label>
+    <input type="tel" id="phone" name="phone">
+    <br>
+
+    <label for="email">Epost:</label>
+    <input type="email" id="email" name="email">
+    <br>
+
+    <input type="submit" value="Kjøp billett">
+    <button type="button" id="deleteButton" onclick="deleteInformation()" style="display:none;">Slett alle billettene</button>
+</form>
+
+<div id="savedInfo"></div>
+
+</body>
+</html>
